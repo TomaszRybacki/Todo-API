@@ -19,13 +19,12 @@ app.post('/todos', (request, response) => {
   }, (error) => {
     response.status(400).send(error);
   });
-
-
 });
-
-
 
 
 app.listen(3000, () => {
   console.log('Started on port 3000');
 });
+
+
+module.exports = {app};
