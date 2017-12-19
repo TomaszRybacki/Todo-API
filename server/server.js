@@ -7,28 +7,29 @@ let {Todo} = require('./models/todo');
 let {User} = require('./models/user');
 
 let app = express();
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
-//app.post('/todos', (request, response) => {
-//  let todo = new Todo({
-//    text: request.body.text
-//  });
-//
-//  todo.save().then((document) => {
-//    response.send(document);
-//  }, (error) => {
-//    response.status(400).send(error);
-//  });
-//});
-//
-//app.get('/todos', (request, response) => {
-//  Todo.find().then((todos) => {
-//    response.send({todos});
-//  }, (error) => {
-//    response.status(400).send(error);
-//  });
-//});
+app.post('/todos', (request, response) => {
+  let todo = new Todo({
+    text: request.body.text
+  });
+
+  todo.save().then((document) => {
+    response.send(document);
+  }, (error) => {
+    response.status(400).send(error);
+  });
+});
+
+app.get('/todos', (request, response) => {
+  Todo.find().then((todos) => {
+    response.send({todos});
+  }, (error) => {
+    response.status(400).send(error);
+  });
+});
 
 app.get('/todos/:id', (request, response) => {
   let id = request.params.id;
@@ -45,8 +46,8 @@ app.get('/todos/:id', (request, response) => {
   }).catch((e) => response.status(400).send());
 });
 
-app.listen(3000, () => {
-  console.log('Started on port 3000');
+app.listen(port, () => {
+  console.log(`Started on port ${port}`);
 });
 
 
